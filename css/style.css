@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: #243547;
+  font-family: 'Roboto Mono', monospace, sans-serif;
+  /* font-weight: 200; */
+}
+main {
+  margin: 0 auto;
+  height: 70%;
+  text-align: center;
+  display: table;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  /* make things invisible upon start */
+  animation: fadeIn ease-in 1;
+  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  animation-fill-mode: forwards;
+  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  animation-duration: 1s;
+  animation-delay: 1s;
+}
+
+.random-pickup-line {
+  display: table-cell;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 20px;
+}
+
+.random-pickup-line.content {
+  margin: 30px;
+  min-width: 500px;
+  background: #3b4b5c;
+  border-radius: 5px;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.pickup-line-box {
+  font-size: 1.6em;
+  line-height: 1.3em;
+  position: relative;
+  max-width: 550px;
+  margin: 30px;
+}
+
+.pickup-line::before,
+.pickup-line::after {
+  font-size: 4.2em;
+  position: absolute;
+}
+
+.pickup-line::before {
+  content: '\201c';
+  left: -46px;
+  top: 15px;
+}
+
+.pickup-line::after {
+  content: '\201d';
+  right: -50px;
+  bottom: -36px;
+}
+
+.author {
+  font-size: 0.7em;
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: -2.5em;
+}
+
+.author::before {
+  content: '\2014';
+  padding-right: 5px;
+}
+
+.fab {
+  position: absolute;
+  right: -28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #ff9800;
+}
+
+svg {
+  width: 36px;
+  margin-top: 10px;
+}
+
+svg path.a {
+  fill: #fff;
+}
+
+svg path.b {
+  fill: none;
+}
+
+@media (min-width: 601px) {
+  .fab {
+    top: -28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .random-pickup-line.content {
+    min-width: 200px;
+  }
+
+  .pickup-line-box {
+    font-size: 1em;
+    margin: 10px;
+  }
+  .pickup-line::before,
+  .pickup-line::after {
+    font-size: 2.4em;
+  }
+
+  .pickup-line::before {
+    content: '\201c';
+    left: -16px;
+    top: 5px;
+  }
+
+  .pickup-line::after {
+    content: '\201d';
+    right: -10px;
+    bottom: -16px;
+  }
+
+  .author {
+    font-size: 0.88em;
+  }
+  .fab {
+    position: fixed;
+    bottom: 26px;
+    right: 26px;
+    width: 46px;
+    height: 46px;
+  }
+  svg {
+    width: 24px;
+  }
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  min-width: 56px;
+  min-height: 8px;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+.hide {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
