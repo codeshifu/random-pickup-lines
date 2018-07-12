@@ -10,65 +10,43 @@ body {
   font-family: 'Roboto Mono', monospace, sans-serif;
   /* font-weight: 200; */
 }
-main {
+.container {
   margin: 0 auto;
-  height: 70%;
+  height: 80%;
   text-align: center;
+  position: relative;
+}
+.vertical-align-wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: table;
 }
 
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.fadeIn {
-  opacity: 0;
-  /* make things invisible upon start */
-  animation: fadeIn ease-in 1;
-  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
-  animation-fill-mode: forwards;
-  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
-  animation-duration: 1s;
-  animation-delay: 1s;
-}
-
-.random-pickup-line {
+.vertical-align {
   display: table-cell;
-  color: #fff;
-  text-align: center;
-  vertical-align: middle;
-  padding: 0 20px;
 }
 
-.random-pickup-line.content {
-  margin: 30px;
-  min-width: 500px;
-  background: #3b4b5c;
+.vertical-align--middle {
+  vertical-align: middle;
+}
+
+.content {
+  color: #fff;
+  margin: 0 auto;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 600px;
+  max-width: 600px;
+  min-height: 240px;
   border-radius: 5px;
-  padding: 40px 20px;
-  position: relative;
+  padding: 20px 20px 40px;
 }
 
 .pickup-line-box {
   font-size: 1.6em;
   line-height: 1.3em;
   position: relative;
-  max-width: 550px;
-  margin: 30px;
 }
 
 .pickup-line::before,
@@ -102,8 +80,16 @@ main {
   padding-right: 5px;
 }
 
+.fab-container {
+  background: red;
+  right: -18px;
+  top: -28px;
+  position: relative;
+}
+
 .fab {
   position: absolute;
+  cursor: pointer;
   right: -28px;
   width: 56px;
   height: 56px;
@@ -124,6 +110,14 @@ svg path.b {
   fill: none;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
 @media (min-width: 601px) {
   .fab {
     top: -28px;
@@ -131,13 +125,21 @@ svg path.b {
 }
 
 @media (max-width: 600px) {
-  .random-pickup-line.content {
-    min-width: 200px;
+  .content {
+    min-width: 300px;
+    max-width: 0;
+    min-height: 180px;
+    max-height: 280px;
   }
-
+  .pickup-line {
+    padding: 10px;
+    line-height: 1.6em;
+  }
   .pickup-line-box {
     font-size: 1em;
-    margin: 10px;
+  }
+  .pickup-line-box .fadeIn {
+    padding: 10px 0 !important;
   }
   .pickup-line::before,
   .pickup-line::after {
@@ -146,13 +148,13 @@ svg path.b {
 
   .pickup-line::before {
     content: '\201c';
-    left: -16px;
+    left: -19px;
     top: 5px;
   }
 
   .pickup-line::after {
     content: '\201d';
-    right: -10px;
+    right: -15px;
     bottom: -16px;
   }
 
@@ -169,6 +171,38 @@ svg path.b {
   svg {
     width: 24px;
   }
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  /* make things invisible upon start */
+  animation: fadeIn ease-in 1;
+  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  animation-fill-mode: forwards;
+  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  animation-duration: 1s;
+  animation-delay: 1s;
+  /* margin: 0 -15px; */
+  padding: 30px;
+  background: #3b4b5c;
 }
 
 .lds-ellipsis {
