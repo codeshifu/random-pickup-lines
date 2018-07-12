@@ -112,6 +112,7 @@ svg path.b {
 
 .hidden {
   visibility: hidden;
+  transition: 1.5s;
 }
 
 .visible {
@@ -206,11 +207,17 @@ svg path.b {
   background: #3b4b5c;
 }
 
-.lds-ellipsis {
-  display: inline-block;
+.loader-container {
   position: relative;
+}
+
+.lds-ellipsis {
   min-width: 56px;
   min-height: 8px;
+  position: absolute;
+  top: -30px;
+  z-index: 3;
+  left: calc(50% - 28px);
 }
 
 .lds-ellipsis div {
