@@ -151,13 +151,13 @@ svg path.b {
   .pickup-line::before {
     content: '\201c';
     left: -19px;
-    top: 5px;
+    top: -5px;
   }
 
   .pickup-line::after {
     content: '\201d';
-    right: -15px;
-    bottom: -16px;
+    right: -18px;
+    bottom: -25px;
   }
 
   .author {
