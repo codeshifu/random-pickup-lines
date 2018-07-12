@@ -120,7 +120,9 @@ svg path.b {
 
 @media (min-width: 601px) {
   .fab {
-    top: -28px;
+    top: 18px;
+    z-index: 2;
+    right: -8px;
   }
 }
 
@@ -163,13 +165,12 @@ svg path.b {
   }
   .fab {
     position: fixed;
-    bottom: 26px;
-    right: 26px;
-    width: 46px;
-    height: 46px;
+    bottom: 16px;
+    right: 16px;
   }
   svg {
     width: 24px;
+    margin-top: 16px;
   }
 }
 
