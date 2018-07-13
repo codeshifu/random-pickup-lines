@@ -6,8 +6,10 @@ const runSequence = require('run-sequence');
 const workboxBuild = require('workbox-build');
 const minify = require('gulp-minify');
 const ghPages = require('gulp-gh-pages');
+const babel = require('gulp-babel');
+const gulpWebpack = require('webpack-stream');
 
-gulp.task('clean', () => del(['app/dist/*']));
+gulp.task('clean', () => del(['!app/dist/idb.js', '!app/dist/idb-min.js']));
 
 gulp.task('deploy', () => gulp.src('app/**/*').pipe(ghPages()));
 
@@ -20,8 +22,9 @@ gulp.task('css', cb =>
 
 gulp.task('js', cb =>
   gulp
-    .src('app/js/*.js')
-    .pipe(minify({}))
+    .src(['app/js/*.js', '!app/js/idb.js'])
+    .pipe(gulpWebpack(require('./webpack.config')))
+    .pipe(minify())
     .pipe(gulp.dest('app/dist/js'))
 );
 
@@ -38,6 +41,6 @@ gulp.task('serve', ['default'], () => {
 
   gulp.watch('app/*.html').on('change', browserSync.reload);
   gulp
-    .watch(['app/css/*.css', 'app/js/*.js'], ['default'])
+    .watch(['app/css/*.css', 'app/js/*.js', '!app/js/idb.js'], ['default'])
     .on('change', browserSync.reload);
 });
