@@ -1,5 +1,6 @@
 (() => {
   const PICKUP_LINES_URL = 'https://pickup-lines.herokuapp.com/api';
+  const PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
 
   window.qs = (target, scope) => (scope || document).querySelector(target);
 
