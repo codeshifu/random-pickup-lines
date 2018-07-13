@@ -876,6 +876,7 @@ window.qs = function (target, scope) {
 var lineBox = qs('.pickup-line-box');
 var loader = qs('.loader');
 var refreshButton = qs('.fab');
+var snackbar = qs('#snackbar');
 
 refreshButton.addEventListener('click', function () {
   showLoader();
@@ -898,6 +899,13 @@ var hideLoader = function hideLoader() {
 };
 var showLoader = function showLoader() {
   return loader.classList.remove('hidden');
+};
+var openSnackBar = function openSnackBar(msg) {
+  snackbar.textContent = msg;
+  snackbar.classList.add('show');
+  setTimeout(function () {
+    snackbar.classList.remove('show');
+  }, 3000);
 };
 
 var createTemplate = function createTemplate(pickupLine) {
@@ -939,7 +947,7 @@ var getRandomPickupLine = function () {
                 cb(result.data);
               }).catch(function (err) {
                 hideLoader();
-                console.log(err.message);
+                openSnackBar('You are offline.');
               });
             }
 

@@ -20,6 +20,7 @@ window.qs = (target, scope) => (scope || document).querySelector(target);
 const lineBox = qs('.pickup-line-box');
 const loader = qs('.loader');
 const refreshButton = qs('.fab');
+const snackbar = qs('#snackbar');
 
 refreshButton.addEventListener('click', () => {
   showLoader();
@@ -39,6 +40,13 @@ const simulateLoading = (cb, data) => {
 
 const hideLoader = () => loader.classList.add('hidden');
 const showLoader = () => loader.classList.remove('hidden');
+const openSnackBar = msg => {
+  snackbar.textContent = msg;
+  snackbar.classList.add('show');
+  setTimeout(() => {
+    snackbar.classList.remove('show');
+  }, 3000);
+};
 
 const createTemplate = pickupLine => {
   return (
@@ -72,7 +80,7 @@ const getRandomPickupLine = async cb => {
       })
       .catch(err => {
         hideLoader();
-        console.log(err.message);
+        openSnackBar('You are offline.');
       });
   }
 };
