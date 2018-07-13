@@ -858,7 +858,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   var db = new _pickupLineDB2.default();
 
   var PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
-  var BASE_URL_DEV = 'http://localhost:8888/api';
 
   window.qs = function (target, scope) {
     return (scope || document).querySelector(target);

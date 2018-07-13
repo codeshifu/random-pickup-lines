@@ -4,7 +4,6 @@ import PickupLineDB from './pickupLineDB';
   const db = new PickupLineDB();
 
   const PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
-  const BASE_URL_DEV = 'http://localhost:8888/api';
 
   window.qs = (target, scope) => (scope || document).querySelector(target);
 
