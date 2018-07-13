@@ -8,7 +8,6 @@ body {
   height: 100%;
   background: #243547;
   font-family: 'Roboto Mono', monospace, sans-serif;
-  /* font-weight: 200; */
 }
 .container {
   margin: 0 auto;
@@ -195,14 +194,10 @@ svg path.b {
 
 .fadeIn {
   opacity: 0;
-  /* make things invisible upon start */
   animation: fadeIn ease-in 1;
-  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
   animation-fill-mode: forwards;
-  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
   animation-duration: 1s;
   animation-delay: 1s;
-  /* margin: 0 -15px; */
   padding: 30px;
   background: #3b4b5c;
 }
@@ -275,33 +270,28 @@ svg path.b {
     transform: translate(19px, 0);
   }
 }
-/* The snackbar - position it at the bottom and in the middle of the screen */
+
 #snackbar {
-  visibility: hidden; /* Hidden by default. Visible on click */
-  width: 150px; /* Set a default minimum width */
-  background-color: #3b4b5c; /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 2px; /* Rounded borders */
-  padding: 16px; /* Padding */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 4; /* Add a z-index if needed */
-  left: calc(50% - 75px); /* Center the snackbar */
-  bottom: 30px; /* 30px from the bottom */
+  visibility: hidden;
+  width: 150px;
+  background-color: #3b4b5c;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 4;
+  left: calc(50% - 75px);
+  bottom: 30px;
   font-size: 0.88em;
 }
 
-/* Show the snackbar when clicking on a button (class added with JavaScript) */
 #snackbar.show {
-  visibility: visible; /* Show the snackbar */
-
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
-However, delay the fade out process for 2.5 seconds */
+  visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-/* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
   from {
     bottom: 0;
