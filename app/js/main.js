@@ -1,5 +1,4 @@
 (() => {
-  const PICKUP_LINES_URL = 'https://pickup-lines.herokuapp.com/api';
   const PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
 
   window.qs = (target, scope) => (scope || document).querySelector(target);
@@ -59,18 +58,32 @@
     );
   };
 
-  const getRandomPickupLine = cb => {
-    fetch(`${PICKUP_LINES_URL}/random`)
+  const getRandomPickupLine = async cb => {
+    const pickupLines = await db.getAll();
+    if (pickupLines && pickupLines.length > 0) {
+      console.log(pickupLines[0]);
+    } else {
+      fetch(`${PICKUP_LINES_API}/random`)
+        .then(res => res.json())
+        .then(result => {
+          cb(result.data);
+        })
+        .catch(err => console.log(err.message));
+    }
+  };
+
+  const getPickupLines = () => {
+    fetch(PICKUP_LINES_API)
       .then(res => res.json())
-      .then(data => {
-        const { data: line } = data;
-        cb(line);
+      .then(result => {
+        db.create(result.data);
       })
       .catch(err => console.log(err.message));
   };
 
   const pickupLineDB = new PickupLinesDB();
   window.db = pickupLineDB;
+
   getRandomPickupLine(updatePage);
-  new PickupLinesDB();
+  getPickupLines();
 })();
