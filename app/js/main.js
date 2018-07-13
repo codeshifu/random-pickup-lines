@@ -1,39 +1,12 @@
+import PickupLineDB from './pickupLineDB';
+
 (() => {
+  const db = new PickupLineDB();
+
   const PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
+  const BASE_URL_DEV = 'http://localhost:8888/api';
 
   window.qs = (target, scope) => (scope || document).querySelector(target);
-
-  class PickupLinesDB {
-    constructor() {
-      this.idb = idb.open('pickup-lines', 1, db => this._upgradeDB(db));
-      this.STORE_LINES = 'lines';
-    }
-
-    _upgradeDB(db) {
-      switch (db.oldVersion) {
-        case 0:
-          db.createObjectStore(this.STORE_LINES);
-      }
-    }
-
-    getAll() {
-      return this.idb.then(db =>
-        db
-          .transaction(this.STORE_LINES)
-          .objectStore(this.STORE_LINES)
-          .getAll()
-      );
-    }
-
-    create(pickupLines) {
-      this.idb.then(db => {
-        const tx = db.transaction(this.STORE_LINES, 'readwrite');
-        tx.objectStore(this.STORE_LINES).put(pickupLines, 'data');
-
-        return tx.complete;
-      });
-    }
-  }
 
   const lineBox = qs('.pickup-line-box');
   const loader = qs('.loader');
@@ -64,7 +37,6 @@
     );
   };
 
-  
   const roll = arr => Math.round(Math.random() * (arr.length - 1));
 
   const generateRandomLine = pickupLines => {
@@ -81,7 +53,7 @@
     if (pickupLines && pickupLines.length > 0) {
       simulateLoading(cb, generateRandomLine(pickupLines[0]));
     } else {
-      fetch(`${PICKUP_LINES_API}/random`)
+      fetch(`${BASE_URL_DEV}/random`)
         .then(res => res.json())
         .then(result => {
           cb(result.data);
@@ -91,14 +63,11 @@
   };
 
   const getPickupLines = cb => {
-    fetch(PICKUP_LINES_API)
+    fetch(BASE_URL_DEV)
       .then(res => res.json())
       .then(result => cb(result.data))
       .catch(err => console.log(err.message));
   };
-
-  const pickupLineDB = new PickupLinesDB();
-  window.db = pickupLineDB;
 
   getRandomPickupLine(updatePage);
   getPickupLines(data => db.create(data));
