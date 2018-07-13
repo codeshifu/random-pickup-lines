@@ -279,7 +279,7 @@ svg path.b {
 #snackbar {
   visibility: hidden; /* Hidden by default. Visible on click */
   width: 150px; /* Set a default minimum width */
-  background-color: #333; /* Black background color */
+  background-color: #3b4b5c; /* Black background color */
   color: #fff; /* White text color */
   text-align: center; /* Centered text */
   border-radius: 2px; /* Rounded borders */
