@@ -69,6 +69,8 @@
       .catch(err => console.log(err.message));
   };
 
+  const pickupLineDB = new PickupLinesDB();
+  window.db = pickupLineDB;
   getRandomPickupLine(updatePage);
   new PickupLinesDB();
 })();
