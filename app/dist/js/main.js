@@ -857,7 +857,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // register service worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js').then(function (reg) {
+    navigator.serviceWorker.register('sw.js', { scope: '/random-pickup-lines/' }).then(function (reg) {
       return console.log('serviceWorker registered.');
     }).catch(function (err) {
       return console.log('failed to register serviceWorker.', err.message);

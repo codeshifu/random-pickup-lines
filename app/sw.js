@@ -19,7 +19,7 @@ if (workbox) {
   },
   {
     "url": "dist/js/main-min.js",
-    "revision": "2c64735b14c06b96eccb1b79142e704f"
+    "revision": "29410f8f83e1669f5f972272a580dd48"
   },
   {
     "url": "images/icons/icon-128x128.png",
