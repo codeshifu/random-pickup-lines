@@ -29,7 +29,7 @@
     create(pickupLines) {
       this.idb.then(db => {
         const tx = db.transaction(this.STORE_LINES, 'readwrite');
-        tx.objectStore(this.STORE_LINES).put(pickupLines);
+        tx.objectStore(this.STORE_LINES).put(pickupLines, 'data');
 
         return tx.complete;
       });
