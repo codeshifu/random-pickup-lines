@@ -1,7 +1,40 @@
 (() => {
-  const PICKUP_LINES_URL = 'https://pickup-lines.herokuapp.com/api';
+  const PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
+  const BASE_URL_DEV = 'http://localhost:8888/api';
 
   window.qs = (target, scope) => (scope || document).querySelector(target);
+
+  class PickupLinesDB {
+    constructor() {
+      this.idb = idb.open('pickup-lines', 1, db => this._upgradeDB(db));
+      this.STORE_LINES = 'lines';
+    }
+
+    _upgradeDB(db) {
+      switch (db.oldVersion) {
+        case 0:
+          db.createObjectStore(this.STORE_LINES);
+      }
+    }
+
+    getAll() {
+      return this.idb.then(db =>
+        db
+          .transaction(this.STORE_LINES)
+          .objectStore(this.STORE_LINES)
+          .getAll()
+      );
+    }
+
+    create(pickupLines) {
+      this.idb.then(db => {
+        const tx = db.transaction(this.STORE_LINES, 'readwrite');
+        tx.objectStore(this.STORE_LINES).put(pickupLines, 'data');
+
+        return tx.complete;
+      });
+    }
+  }
 
   const lineBox = qs('.pickup-line-box');
   const loader = qs('.loader');
@@ -17,24 +50,57 @@
     lineBox.innerHTML = createTemplate(pickupLine);
   };
 
-  const createTemplate = line => {
+  const simulateLoading = (cb, data) => {
+    setTimeout(function() {
+      cb(data);
+    }, 1500);
+  };
+
+  const createTemplate = pickupLine => {
     return (
       `<div class='fadeIn'>` +
-      `<p class="pickup-line">${line}</p>` +
+      `<p class="pickup-line">${pickupLine}</p>` +
       `<cite class="author">Anonymous</cite>` +
       `</div>`
     );
   };
 
-  const getRandomPickupLine = cb => {
-    fetch(`${PICKUP_LINES_URL}/random`)
+  
+  const roll = arr => Math.round(Math.random() * (arr.length - 1));
+
+  const generateRandomLine = pickupLines => {
+    const keys = Object.keys(pickupLines),
+      randomKeyIndex = roll(keys),
+      lines = pickupLines[keys[randomKeyIndex]],
+      randomLine = lines[roll(lines)];
+
+    return randomLine;
+  };
+
+  const getRandomPickupLine = async cb => {
+    const pickupLines = await db.getAll();
+    if (pickupLines && pickupLines.length > 0) {
+      simulateLoading(cb, generateRandomLine(pickupLines[0]));
+    } else {
+      fetch(`${BASE_URL_DEV}/random`)
+        .then(res => res.json())
+        .then(result => {
+          cb(result.data);
+        })
+        .catch(err => console.log(err.message));
+    }
+  };
+
+  const getPickupLines = cb => {
+    fetch(BASE_URL_DEV)
       .then(res => res.json())
-      .then(data => {
-        const { data: line } = data;
-        cb(line);
-      })
+      .then(result => cb(result.data))
       .catch(err => console.log(err.message));
   };
 
+  const pickupLineDB = new PickupLinesDB();
+  window.db = pickupLineDB;
+
   getRandomPickupLine(updatePage);
+  getPickupLines(data => db.create(data));
 })();
