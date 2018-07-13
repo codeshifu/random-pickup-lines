@@ -72,12 +72,10 @@
     }
   };
 
-  const getPickupLines = () => {
+  const getPickupLines = cb => {
     fetch(PICKUP_LINES_API)
       .then(res => res.json())
-      .then(result => {
-        db.create(result.data);
-      })
+      .then(result => cb(result.data))
       .catch(err => console.log(err.message));
   };
 
@@ -85,5 +83,5 @@
   window.db = pickupLineDB;
 
   getRandomPickupLine(updatePage);
-  getPickupLines();
+  getPickupLines(db.create);
 })();
