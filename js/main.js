@@ -3,7 +3,7 @@ import PickupLineDB from './pickupLineDB';
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('/sw.js', { scope: '/random-pickup-lines/' })
+      .register('sw.js', { scope: '/random-pickup-lines/' })
       .then(reg => console.log('serviceWorker registered.'))
       .catch(err =>
         console.log('failed to register serviceWorker.', err.message)
