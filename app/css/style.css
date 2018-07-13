@@ -51,20 +51,20 @@ body {
 
 .pickup-line::before,
 .pickup-line::after {
-  font-size: 4.2em;
+  font-size: 3.2em;
   position: absolute;
 }
 
 .pickup-line::before {
   content: '\201c';
   left: -46px;
-  top: 15px;
+  top: 1px;
 }
 
 .pickup-line::after {
   content: '\201d';
-  right: -50px;
-  bottom: -36px;
+  right: -45px;
+  bottom: -40px;
 }
 
 .author {
@@ -83,7 +83,7 @@ body {
 .fab-container {
   background: red;
   right: -18px;
-  top: -28px;
+  top: -48px;
   position: relative;
 }
 
