@@ -854,106 +854,128 @@ var _pickupLineDB2 = _interopRequireDefault(_pickupLineDB);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(function () {
-  var db = new _pickupLineDB2.default();
-
-  var PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
-  var BASE_URL_DEV = 'http://localhost:8888/api';
-
-  window.qs = function (target, scope) {
-    return (scope || document).querySelector(target);
-  };
-
-  var lineBox = qs('.pickup-line-box');
-  var loader = qs('.loader');
-  var refreshButton = qs('.fab');
-
-  refreshButton.addEventListener('click', function () {
-    loader.classList.remove('hidden');
-    getRandomPickupLine(updatePage);
-  });
-
-  var updatePage = function updatePage(pickupLine) {
-    loader.classList.add('hidden');
-    lineBox.innerHTML = createTemplate(pickupLine);
-  };
-
-  var simulateLoading = function simulateLoading(cb, data) {
-    setTimeout(function () {
-      cb(data);
-    }, 1500);
-  };
-
-  var createTemplate = function createTemplate(pickupLine) {
-    return '<div class=\'fadeIn\'>' + ('<p class="pickup-line">' + pickupLine + '</p>') + '<cite class="author">Anonymous</cite>' + '</div>';
-  };
-
-  var roll = function roll(arr) {
-    return Math.round(Math.random() * (arr.length - 1));
-  };
-
-  var generateRandomLine = function generateRandomLine(pickupLines) {
-    var keys = (0, _keys2.default)(pickupLines),
-        randomKeyIndex = roll(keys),
-        lines = pickupLines[keys[randomKeyIndex]],
-        randomLine = lines[roll(lines)];
-
-    return randomLine;
-  };
-
-  var getRandomPickupLine = function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(cb) {
-      var pickupLines;
-      return _regenerator2.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return db.getAll();
-
-            case 2:
-              pickupLines = _context.sent;
-
-              if (pickupLines && pickupLines.length > 0) {
-                simulateLoading(cb, generateRandomLine(pickupLines[0]));
-              } else {
-                fetch(PICKUP_LINES_API + '/random').then(function (res) {
-                  return res.json();
-                }).then(function (result) {
-                  cb(result.data);
-                }).catch(function (err) {
-                  return console.log(err.message);
-                });
-              }
-
-            case 4:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-
-    return function getRandomPickupLine(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var getPickupLines = function getPickupLines(cb) {
-    fetch(PICKUP_LINES_API).then(function (res) {
-      return res.json();
-    }).then(function (result) {
-      return cb(result.data);
+// register service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').then(function (reg) {
+      return console.log('serviceWorker registered.');
     }).catch(function (err) {
-      return console.log(err.message);
+      return console.log('failed to register serviceWorker.', err.message);
     });
-  };
-
-  getRandomPickupLine(updatePage);
-  getPickupLines(function (data) {
-    return db.create(data);
   });
-})();
+}
+
+var db = new _pickupLineDB2.default();
+
+var PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
+
+window.qs = function (target, scope) {
+  return (scope || document).querySelector(target);
+};
+
+var lineBox = qs('.pickup-line-box');
+var loader = qs('.loader');
+var refreshButton = qs('.fab');
+var snackbar = qs('#snackbar');
+
+refreshButton.addEventListener('click', function () {
+  showLoader();
+  getRandomPickupLine(updatePage);
+});
+
+var updatePage = function updatePage(pickupLine) {
+  hideLoader();
+  lineBox.innerHTML = createTemplate(pickupLine);
+};
+
+var simulateLoading = function simulateLoading(cb, data) {
+  setTimeout(function () {
+    cb(data);
+  }, 1500);
+};
+
+var hideLoader = function hideLoader() {
+  return loader.classList.add('hidden');
+};
+var showLoader = function showLoader() {
+  return loader.classList.remove('hidden');
+};
+var openSnackBar = function openSnackBar(msg) {
+  snackbar.textContent = msg;
+  snackbar.classList.add('show');
+  setTimeout(function () {
+    snackbar.classList.remove('show');
+  }, 3000);
+};
+
+var createTemplate = function createTemplate(pickupLine) {
+  return '<div class=\'fadeIn\'>' + ('<p class="pickup-line">' + pickupLine + '</p>') + '<cite class="author">Anonymous</cite>' + '</div>';
+};
+
+var roll = function roll(arr) {
+  return Math.round(Math.random() * (arr.length - 1));
+};
+
+var generateRandomLine = function generateRandomLine(pickupLines) {
+  var keys = (0, _keys2.default)(pickupLines),
+      randomKeyIndex = roll(keys),
+      lines = pickupLines[keys[randomKeyIndex]],
+      randomLine = lines[roll(lines)];
+
+  return randomLine;
+};
+
+var getRandomPickupLine = function () {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(cb) {
+    var pickupLines;
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return db.getAll();
+
+          case 2:
+            pickupLines = _context.sent;
+
+            if (pickupLines && pickupLines.length > 0) {
+              simulateLoading(cb, generateRandomLine(pickupLines[0]));
+            } else {
+              fetch(PICKUP_LINES_API + '/random').then(function (res) {
+                return res.json();
+              }).then(function (result) {
+                cb(result.data);
+              }).catch(function (err) {
+                hideLoader();
+                openSnackBar('You are offline.');
+              });
+            }
+
+          case 4:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  }));
+
+  return function getRandomPickupLine(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var getPickupLines = function getPickupLines(cb) {
+  fetch(PICKUP_LINES_API).then(function (res) {
+    return res.json();
+  }).then(function (result) {
+    return cb(result.data);
+  }).catch(function (err) {
+    return console.log(err.message);
+  });
+};
+
+getRandomPickupLine(updatePage);
+// getPickupLines(data => db.create(data));
 
 /***/ }),
 /* 40 */

@@ -8,7 +8,6 @@ body {
   height: 100%;
   background: #243547;
   font-family: 'Roboto Mono', monospace, sans-serif;
-  /* font-weight: 200; */
 }
 .container {
   margin: 0 auto;
@@ -195,14 +194,10 @@ svg path.b {
 
 .fadeIn {
   opacity: 0;
-  /* make things invisible upon start */
   animation: fadeIn ease-in 1;
-  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
   animation-fill-mode: forwards;
-  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
   animation-duration: 1s;
   animation-delay: 1s;
-  /* margin: 0 -15px; */
   padding: 30px;
   background: #3b4b5c;
 }
@@ -275,14 +270,68 @@ svg path.b {
     transform: translate(19px, 0);
   }
 }
-.hide {
-  display: none;
+
+#snackbar {
+  visibility: hidden;
+  width: 150px;
+  background-color: #3b4b5c;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 4;
+  left: calc(50% - 75px);
+  bottom: 30px;
+  font-size: 0.88em;
 }
 
-.block {
-  display: block;
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-.inline-block {
-  display: inline-block;
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
