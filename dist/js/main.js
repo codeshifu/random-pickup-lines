@@ -872,6 +872,7 @@ window.addEventListener('beforeinstallprompt', function (event) {
   event.preventDefault();
   // Stash the event so it can be triggered later.
   $app.promptEvent = event;
+  console.log($app);
 });
 
 var db = new _pickupLineDB2.default();

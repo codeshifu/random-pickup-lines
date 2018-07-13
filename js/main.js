@@ -18,6 +18,7 @@ window.addEventListener('beforeinstallprompt', event => {
   event.preventDefault();
   // Stash the event so it can be triggered later.
   $app.promptEvent = event;
+  console.log($app);
 });
 
 const db = new PickupLineDB();
