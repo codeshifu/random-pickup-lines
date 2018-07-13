@@ -5,8 +5,11 @@ const cleanCSS = require('gulp-clean-css');
 const runSequence = require('run-sequence');
 const workboxBuild = require('workbox-build');
 const minify = require('gulp-minify');
+const ghPages = require('gulp-gh-pages');
 
 gulp.task('clean', () => del(['app/dist/*']));
+
+gulp.task('deploy', () => gulp.src('app/**/*').pipe(ghPages()));
 
 gulp.task('css', cb =>
   gulp
