@@ -865,6 +865,16 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+window.$app = {};
+
+window.addEventListener('beforeinstallprompt', function (event) {
+  // delay prompting users to add to homescreen on first visit
+  event.preventDefault();
+  // Stash the event so it can be triggered later.
+  $app.promptEvent = event;
+  console.log($app);
+});
+
 var db = new _pickupLineDB2.default();
 
 var PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
@@ -881,7 +891,22 @@ var snackbar = qs('#snackbar');
 refreshButton.addEventListener('click', function () {
   showLoader();
   getRandomPickupLine(updatePage);
+  showA2HSPrompt();
 });
+
+var showA2HSPrompt = function showA2HSPrompt() {
+  $app.promptEvent.prompt();
+  $app.promptEvent.userChoice.then(handleA2HSResponse);
+};
+
+var handleA2HSResponse = function handleA2HSResponse(choice) {
+  if (choice.outcome === 'accepted') {
+    openSnackBar('Added to homescreen.');
+  } else {
+    openSnackBar("Ok I won't add it");
+  }
+  $app.promptEvent = null;
+};
 
 var updatePage = function updatePage(pickupLine) {
   hideLoader();
