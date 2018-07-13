@@ -58,6 +58,18 @@
     );
   };
 
+  
+  const roll = arr => Math.round(Math.random() * (arr.length - 1));
+
+  const generateRandomLine = pickupLines => {
+    const keys = Object.keys(pickupLines),
+      randomKeyIndex = roll(keys),
+      lines = pickupLines[keys[randomKeyIndex]],
+      randomLine = lines[roll(lines)];
+
+    return randomLine;
+  };
+
   const getRandomPickupLine = async cb => {
     const pickupLines = await db.getAll();
     if (pickupLines && pickupLines.length > 0) {
