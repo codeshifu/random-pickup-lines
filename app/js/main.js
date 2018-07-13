@@ -49,6 +49,12 @@
     lineBox.innerHTML = createTemplate(pickupLine);
   };
 
+  const simulateLoading = (cb, data) => {
+    setTimeout(function() {
+      cb(data);
+    }, 1500);
+  };
+
   const createTemplate = pickupLine => {
     return (
       `<div class='fadeIn'>` +
@@ -73,7 +79,7 @@
   const getRandomPickupLine = async cb => {
     const pickupLines = await db.getAll();
     if (pickupLines && pickupLines.length > 0) {
-      console.log(pickupLines[0]);
+      simulateLoading(cb, generateRandomLine(pickupLines[0]));
     } else {
       fetch(`${PICKUP_LINES_API}/random`)
         .then(res => res.json())
@@ -95,5 +101,5 @@
   window.db = pickupLineDB;
 
   getRandomPickupLine(updatePage);
-  getPickupLines(db.create);
+  getPickupLines(data => db.create(data));
 })();
