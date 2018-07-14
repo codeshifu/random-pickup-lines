@@ -23,23 +23,23 @@ if (workbox) {
   },
   {
     "url": "images/icons/icon-128x128.png",
-    "revision": "496f2d5211471d94b79de66671866973"
+    "revision": "9b59c8588371a8fe2ba7768bc30ac7c2"
   },
   {
     "url": "images/icons/icon-192x192.png",
-    "revision": "bb4d49862dc3ac27086e7cf0ce448c60"
+    "revision": "7bed597caddcd7d05ad2788e3c881446"
   },
   {
     "url": "images/icons/icon-256x256.png",
-    "revision": "16107c15657cb6084a2b192f32b66e9b"
+    "revision": "e75d1ce632e6d3777ffe6fb8a04fd4dd"
   },
   {
     "url": "images/icons/icon-384x384.png",
-    "revision": "4770d75f33f3d1f4c084b510bb7d83ba"
+    "revision": "2c67f73ade12a925a684221e84247b9c"
   },
   {
     "url": "images/icons/icon-512x512.png",
-    "revision": "e69326918f82dc746d526fa42889b9ff"
+    "revision": "bde3b94de5468bf2e13a5694025ceb18"
   },
   {
     "url": "manifest.json",
