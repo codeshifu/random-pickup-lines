@@ -2,7 +2,7 @@
   "name": "Random Pickup Lines",
   "short_name": "RPL",
   "lang": "en-US",
-  "start_url": "index.html",
+  "start_url": ".",
   "icons": [
     {
       "src": "images/icons/icon-128x128.png",
