@@ -43,7 +43,7 @@ if (workbox) {
   },
   {
     "url": "manifest.json",
-    "revision": "bde514df43acc2e6aec4159429b72dc5"
+    "revision": "6e95962ceedba46e4b8911ab319480fe"
   }
 ]);
 
