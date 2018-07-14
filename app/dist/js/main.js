@@ -967,7 +967,9 @@ var getPickupLines = function getPickupLines(cb) {
 };
 
 getRandomPickupLine(updatePage);
-// getPickupLines(data => db.create(data));
+getPickupLines(function (data) {
+  return db.create(data);
+});
 
 /***/ }),
 /* 38 */
