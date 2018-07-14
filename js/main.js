@@ -111,4 +111,4 @@ const getPickupLines = cb => {
 };
 
 getRandomPickupLine(updatePage);
-// getPickupLines(data => db.create(data));
+getPickupLines(data => db.create(data));
