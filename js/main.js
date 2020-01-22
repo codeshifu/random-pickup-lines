@@ -23,7 +23,7 @@ window.addEventListener('beforeinstallprompt', event => {
 
 const db = new PickupLineDB();
 
-const PICKUP_LINES_API = 'https://pickup-lines.herokuapp.com/api';
+const PICKUP_LINES_API = 'https://codeshifu-pickup-lines.glitch.me/api';
 
 window.qs = (target, scope) => (scope || document).querySelector(target);
 
